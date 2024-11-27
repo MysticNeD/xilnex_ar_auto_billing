@@ -1,8 +1,7 @@
 """
 Author: Bryan
 
-Manual Instruction:
-
+Read below for disclamer
 
 """
 
