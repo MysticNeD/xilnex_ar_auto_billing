@@ -19,14 +19,16 @@ import pyperclip
 from datetime import datetime
 from threading import Thread
 
+# create autolog everytimme in Downloads\Xilnex_Auto_AR_Billing
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 log_file_path = os.path.join(os.path.expanduser("~"), "Downloads", "Xilnex_Auto_AR_Billing", f"automation_{timestamp}.log")
 
 logging.basicConfig(filename=log_file_path, filemode='w', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 running = False
-max_attempts = 10
+max_attempts = 10 # can reduce attempts to increase efficiency
 
+# if need to change from coordinates to picture locate, add image start from here and copy the format
 image_path = "Xilnex_Auto_AR_Billing\\Confirmation_2_Enter.png"
 image2_path = 'Xilnex_Auto_AR_Billing\\billed_success.png'
 image3_path = 'Xilnex_Auto_AR_Billing\\billed_fail.png'
@@ -51,7 +53,7 @@ def capture_screen():
         logging.error(f"Error capturing screen: {e}")
         return None
 
-def match_template_on_screen(template, threshold=0.5):
+def match_template_on_screen(template, threshold=0.5):    # dont change threshold if not necessary
     try:
         screen = capture_screen()
         if screen is None:
@@ -69,7 +71,8 @@ def match_template_on_screen(template, threshold=0.5):
     except Exception as e:
         logging.error(f"Error in template matching: {e}")
         return None
-    
+
+# checkpoint.
 def check_clickboard_change(original_content, new_content):
     if new_content != original_content:
         logging.info("Clipboard updated")
@@ -86,14 +89,14 @@ def locate_and_click_image():
     attempt = 0
     found = False
     while attempt < max_attempts:
-        location = match_template_on_screen(template1, threshold=0.3)
+        location = match_template_on_screen(template1, threshold=0.3) # do not change threshold
         if location:
             logging.info(f"Confirmation template found. Pressing Enter. Attempt {attempt + 1}")
             pa.press('enter')
             print("confirmation done")
-            time.sleep(5)
+            time.sleep(5) # do not change
             pa.click(x=850, y=680, duration=0.3)
-            time.sleep(0.5)
+            time.sleep(0.5) # can reduce
             pa.hotkey('ctrl', 'w')
             logging.info("ctrl+w hotkey done")
             print("ctrl+w hotkey done")
@@ -102,12 +105,22 @@ def locate_and_click_image():
         else:
             attempt += 1
             logging.warning(f"Confirmation template not found. Retrying... ({attempt}/{max_attempts})")
-            time.sleep(2)
+            time.sleep(2) # can reduce
     if not found:
         logging.error("Confirmation template not found after maximum attempts. Clicking fallback position.")
         pa.click(x=850, y=680, duration=1)
-        time.sleep(5)
+        time.sleep(5) # do not change
         pa.hotkey('ctrl', 'w')
+
+"""
+explanation of (locate_and_click_image):
+When you click confirm invoice, it shows up with confirmation
+mostly have 2's, but in minor cases there are only one confirmation
+and it is easy to freeze (crashed) if the pc pressed enter again
+time.sleep(5) is calculated to minimize the risk of crashed after pressed enter and not "sales confirmed"
+
+"""
+
 
 def start_automation():
     global running
@@ -131,7 +144,7 @@ def toggle_running():
     else:
         logging.info("Automation paused.")
 
-keyboard.add_hotkey("F8", toggle_running)
+keyboard.add_hotkey("F8", toggle_running)  # can change "F8" to any other hotkey
 
 def stop_program():
     global running
@@ -139,7 +152,7 @@ def stop_program():
     logging.info("Stopping the program and exiting.")
     os._exit(0)
 
-keyboard.add_hotkey("F9", stop_program)
+keyboard.add_hotkey("F9", stop_program) # not often used, can delete if unwanted
 
 def final_action():
     if running:
