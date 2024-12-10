@@ -154,10 +154,11 @@ def stop_program():
 
 keyboard.add_hotkey("F9", stop_program) # not often used, can delete if unwanted
 
-"""
-definition of using F8 and F9:
-"""
 
+"""
+final_action bug: sometimes the error shows “clickboard update failed" because it was copied ealier, currently no solution
+for every time.sleep() except row 166 can be reduced if necessary
+"""
 def final_action():
     if running:
         logging.info("Final run started.")
@@ -435,6 +436,7 @@ def final_action():
 
         perform_repetitive_action()
 
+# every time.sleep() in perform_repetitive_action is tested until maximum affordable time, not recommended to reduce
 def perform_repetitive_action():
     try:
         logging.info("Performing billing action.")
@@ -555,7 +557,7 @@ def perform_action():
             perform_repetitive_action()
 
             logging.info("Resetting to third position.")
-            time.sleep(5)
+            time.sleep(5) # can reduce
             pa.click(x=139, y=436, duration=0.5)
             time.sleep(0.2)
             pa.click(button='right')
@@ -583,7 +585,7 @@ def perform_action():
             perform_repetitive_action()
 
             logging.info("Loop done. Preparing to scroll for new loop.")
-            time.sleep(5)
+            time.sleep(5) # can reduce
             pa.moveTo(x=156, y=346, duration=0.2)
             time.sleep(0.5)
             pa.scroll(-200)
