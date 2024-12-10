@@ -11,10 +11,7 @@ Before prepartion:
 2. Hide the taskbar
 
 Manual instruction:
-1. Main menu should be in first tab
-2. Open Transfer Note, filter completed and unbilled
-3. Filter transfer to (prevent billed same account)
+1. Open Transfer Note List, Transfer from All Branchers, filter completed and unbilled
+3. Filter Transfer to --> "Does not contains" "001STX"
 4. Caps Lock off
-5. Run python file and press F8
-
-Happy automation!
+5. VS Code --> Run python file and press F8
