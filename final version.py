@@ -154,6 +154,10 @@ def stop_program():
 
 keyboard.add_hotkey("F9", stop_program) # not often used, can delete if unwanted
 
+"""
+definition of using F8 and F9:
+"""
+
 def final_action():
     if running:
         logging.info("Final run started.")
