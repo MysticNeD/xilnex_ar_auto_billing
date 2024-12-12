@@ -158,6 +158,7 @@ keyboard.add_hotkey("F9", stop_program) # not often used, can delete if unwanted
 """
 final_action bug: sometimes the error shows “clickboard update failed" because it was copied ealier, currently no solution
 for every time.sleep() except row 166 can be reduced if necessary
+(FYI: you dont need to reduce time.sleep() because final_action() will only start when it is on last scroll, it did not increase the efficiency very well)
 """
 def final_action():
     if running:
