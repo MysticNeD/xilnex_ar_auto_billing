@@ -1,10 +1,12 @@
+IMPORTANT:
+THIS CODE IS BUILT FOR PC/SOFTWARE - XILNEX SPECIFIC-CASES ONLY, IT IS NOT GUARANTEED THAT CAN BE USED NORMALLY IN EVERY SYSTEM.
+The purpose of public respiratory is for backup for educational purpose only.
+Should you have any questions, ideas, or consultation, please do not hesitate to contact me.
+
 # xilnex_ar_auto_billing
 Backup (Last updated: 27/11/2024)
 
 Author: Bryan at 13/11/2024
-
-Disclamer:
-This code is used for half-automation (means you will need have preparation, and you can't use the computer at the moment of running)
 
 Before prepartion:
 1. Computer ratio should be 1920x1080 (IMPORTANT)
