@@ -14,6 +14,6 @@ Before prepartion:
 
 Manual instruction:
 1. Open Transfer Note List, Transfer from All Branchers, filter completed and unbilled
-3. Filter Transfer to --> "Does not contains" "001STX"
+3. Filter Transfer to --> "Does not contains" "current branch code"
 4. Caps Lock off
 5. VS Code --> Run python file and press F8
