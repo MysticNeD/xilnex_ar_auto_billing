@@ -17,3 +17,5 @@ Manual instruction:
 3. Filter Transfer to --> "Does not contains" "current branch code"
 4. Caps Lock off
 5. VS Code --> Run python file and press F8
+
+Xilnex_Auto_AR_Billing © 2025 by Bryan Chong is licensed under CC BY 4.0 
