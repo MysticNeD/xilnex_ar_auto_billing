@@ -1,6 +1,6 @@
 IMPORTANT:
 THIS CODE IS BUILT FOR PC/SOFTWARE - XILNEX SPECIFIC-CASES ONLY, IT IS NOT GUARANTEED THAT CAN BE USED NORMALLY IN EVERY SYSTEM.
-The purpose of public respiratory is for backup for educational purpose only.
+The purpose of public respiratory is for backup and for educational purpose only.
 Should you have any questions, ideas, or consultation, please do not hesitate to contact me.
 
 # xilnex_ar_auto_billing
