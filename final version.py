@@ -475,13 +475,24 @@ def perform_repetitive_action():
         time.sleep(1)
         locate_and_click_image()
         time.sleep(0.2)
-        found_image2 = match_template_on_screen(template2, threshold=0.9)
-        time.sleep(0.2)
+        
+        found_image2 = False
+        for attempt in range(3):
+            found_image2, confidence2 = match_template_on_screen(template2, threshold=0.72, return_confidence=True)
+            logging.info(f"Attempt {attempt+1}: billed_success match confidence: {confidence2}")
+            print(f"Attempt {attempt+1}: billed_success match confidence: {confidence2}")
+
+            if found_image2:
+                logging.info(f"Found billed_success image: {image2_path}. Continuing process.")
+                print(f"Found billed_success image: {image2_path}. Continuing process.")
+                break  # 成功匹配到 billed_success，跳出循环
+
+            time.sleep(0.2)  # 避免检测速度过快
+
         found_image3 = match_template_on_screen(template3, threshold=0.5)
 
         if found_image2:
-            logging.info(f"Found billed_success image: {image2_path}. Continuing process.")
-            print(f"Found billed_success image: {image2_path}. Continuing process.")
+            pass  # 已找到 billed_success，继续后续流程
         elif found_image3 or not found_image2:
             found_image4 = match_template_on_screen(template4, threshold=0.8)
             if found_image4:
@@ -489,8 +500,8 @@ def perform_repetitive_action():
                 print("Menu detected. Terminating process.")
                 sys.exit()
             else:
-                logging.info(f"Found billed_fail or no images found. Performing ctrl+w.")
-                print("found fail or no image")
+                logging.info("Found billed_fail or no images found. Performing ctrl+w.")
+                print("Found fail or no image")
                 time.sleep(5)
                 pa.click(x=850, y=680, duration=1)
                 pa.hotkey('ctrl', 'w')
