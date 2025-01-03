@@ -474,8 +474,9 @@ def perform_repetitive_action():
         pa.press('enter')
         time.sleep(1)
         locate_and_click_image()
-
+        time.sleep(0.2)
         found_image2 = match_template_on_screen(template2, threshold=0.9)
+        time.sleep(0.2)
         found_image3 = match_template_on_screen(template3, threshold=0.5)
 
         if found_image2:
@@ -491,6 +492,7 @@ def perform_repetitive_action():
                 logging.info(f"Found billed_fail or no images found. Performing ctrl+w.")
                 print("found fail or no image")
                 time.sleep(5)
+                pa.click(x=850, y=680, duration=1)
                 pa.hotkey('ctrl', 'w')
     except Exception as e:
         logging.error(f"Error during repetitive action: {e}")
