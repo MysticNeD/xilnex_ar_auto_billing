@@ -120,16 +120,16 @@ and it is easy to freeze (crashed) if the pc pressed enter again
 time.sleep(5) is calculated to minimize the risk of crashed after pressed enter and not "sales confirmed"
 
 """
-
-
 def start_automation():
     global running
-    if not running:
-        running = True
-        logging.info("Automation started from GUI")
-        Thread(target=perform_action, daemon=True).start()
-        
-
+    if not keyboard.is_toggled("caps lock"):
+        if not running:
+            running = True
+            logging.info("Automation started from GUI")
+            Thread(target=perform_action, daemon=True).start()
+    else:
+        print("Cannot start automation because Caps Lock is ON")
+    
 def stop_automation():
     global running
     if running: 
@@ -138,6 +138,9 @@ def stop_automation():
 
 def toggle_running():
     global running
+    if keyboard.is_toggled("caps lock"):
+        print("Cannot toggle automation because caps lock is ON")
+        return
     running = not running
     if running:
         logging.info("Automation started.")
@@ -472,7 +475,7 @@ def perform_repetitive_action():
         time.sleep(1)
         locate_and_click_image()
 
-        found_image2 = match_template_on_screen(template2, threshold=0.5)
+        found_image2 = match_template_on_screen(template2, threshold=0.9)
         found_image3 = match_template_on_screen(template3, threshold=0.5)
 
         if found_image2:
