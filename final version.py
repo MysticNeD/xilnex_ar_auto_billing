@@ -18,6 +18,7 @@ import logging
 import pyperclip
 from datetime import datetime
 from threading import Thread
+import ctypes
 
 # create autolog everytimme in Downloads\Xilnex_Auto_AR_Billing
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -58,19 +59,19 @@ def match_template_on_screen(template, threshold=0.5):    # dont change threshol
         screen = capture_screen()
         if screen is None:
             logging.warning("Screen capture failed. Template matching skipped.")
-            return None
+            return None if not return_confidence else (None,0.0)
         result = cv2.matchTemplate(screen, template, cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
         logging.info(f"Template matching max value: {max_val}")
         if max_val >= threshold:
             logging.info(f"Template found with value: {max_val} at location: {max_loc}")
-            return max_loc
+            return (max_loc, max_val) if return_confidence else max_loc
         else:
             logging.info("Template not found.")
-        return None
+        return None if not return_confidence else (None,0.0)
     except Exception as e:
         logging.error(f"Error in template matching: {e}")
-        return None
+        return None if not return_confidence else (None,0.0)
 
 # checkpoint.
 def check_clickboard_change(original_content, new_content):
@@ -120,9 +121,13 @@ and it is easy to freeze (crashed) if the pc pressed enter again
 time.sleep(5) is calculated to minimize the risk of crashed after pressed enter and not "sales confirmed"
 
 """
+def caps_lock_status() -> bool:
+    VK_CAPITAL = 0x14
+    return bool(ctypes.windll.user32.GetKeyState(VK_CAPITAL) & 1)
+
 def start_automation():
     global running
-    if not keyboard.is_toggled("caps lock"):
+    if not caps_lock_status():
         if not running:
             running = True
             logging.info("Automation started from GUI")
@@ -138,7 +143,7 @@ def stop_automation():
 
 def toggle_running():
     global running
-    if keyboard.is_toggled("caps lock"):
+    if caps_lock_status():
         print("Cannot toggle automation because caps lock is ON")
         return
     running = not running
@@ -155,8 +160,7 @@ def stop_program():
     logging.info("Stopping the program and exiting.")
     os._exit(0)
 
-keyboard.add_hotkey("F9", stop_program) # not often used, can delete if unwanted
-
+keyboard.add_hotkey("F9", stop_program)
 
 """
 final_action bug: sometimes the error shows “clickboard update failed" because it was copied ealier, currently no solution
@@ -475,7 +479,8 @@ def perform_repetitive_action():
         time.sleep(1)
         locate_and_click_image()
         time.sleep(0.2)
-        
+        """
+        (have bug)
         found_image2 = False
         for attempt in range(3):
             found_image2, confidence2 = match_template_on_screen(template2, threshold=0.72, return_confidence=True)
@@ -505,6 +510,7 @@ def perform_repetitive_action():
                 time.sleep(5)
                 pa.click(x=850, y=680, duration=1)
                 pa.hotkey('ctrl', 'w')
+        """
     except Exception as e:
         logging.error(f"Error during repetitive action: {e}")
 
