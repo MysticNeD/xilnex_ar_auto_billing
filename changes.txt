@@ -1,0 +1,18 @@
+Remmber to change to own path to run file.
+
+final_version.py,
+  
+image_path = "C:\\Users\\yourusername\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\Confirmation_2_Enter.png"
+image2_path = ....
+.
+.
+.
+bill_image = ....
+change the file path into own file path
+
+bill.py,
+
+bill_image = 'C:\\Users\\yourusername\\Downloads\\Xilnex_Auto_AR_Billing\\bill_text.png'
+
+change the file path into own file path
+
