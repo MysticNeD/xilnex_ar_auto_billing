@@ -1,4 +1,4 @@
-Remmber to change to own path to run file.
+Remember to change to own path to run file.
 
 final_version.py,
   
