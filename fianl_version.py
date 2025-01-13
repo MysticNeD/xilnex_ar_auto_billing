@@ -55,6 +55,8 @@ def capture_screen():
     
 def sit_detect(template6, threshold = 0.5, timeout = 15, return_confidence=False):
     start_time = time.time()
+    found = False
+    confidence3 = 0.0
     with mss() as sct:
         while time.time() - start_time < timeout:
             logging.info("Start to detect Sales Invoice Tab")
@@ -67,8 +69,11 @@ def sit_detect(template6, threshold = 0.5, timeout = 15, return_confidence=False
                 logging.info(f"Sales Invoice Tab Detected with confidence {return_confidence}. Perform Action")
                 return True if return_confidence else max_val
             time.sleep(0.5)
-    logging.warning("Tab not detected during timeout period")
-    return False
+    if return_confidence:
+        return found, confidence3
+    else:
+        logging.warning("Tab not detected during timeout period")
+        return False
 
 def sc_detect(template7, threshold = 0.6, timeout = 20, return_confidence=False):
     start_time2 = time.time()
@@ -224,12 +229,11 @@ def final_action():
         time.sleep(3)
         pa.click(x=124, y=477, duration = 1)
         time.sleep(0.3)
-        pa.click(button= 'right')
         if not running: return
 
         original_content = pyperclip.paste()
 
-        pa.click(x=208, y=490, duration=0.2)
+        pa.hotkey('ctrl','c')
         if not running: return
 
         time.sleep(0.5)
@@ -241,24 +245,22 @@ def final_action():
         pa.click(x=125, y=477, button='right', duration=0.3)
         if not running: return
         time.sleep(0.5)
-        pa.click(x=205, y=760, duration=0.5)
+        bill.click_bill(bill_image) #pa.click(x=205, y=760, duration=0.5)
         if not running: return
         time.sleep(0.5)
         pa.press('enter')
-        time.sleep(3)
+        time.sleep(0.5)
 
-        perform_repetitive_action()
+        check_sit()
 
         logging.info('5th bill')
         time.sleep(3)
         pa.click(x=135, y=527, duration=0.5)
-        time.sleep(0.2)
-        pa.click(button='right')
         if not running: return
 
         original_content = pyperclip.paste()
 
-        pa.click(x=205, y=545, duration=0.2)
+        pa.hotkey('ctrl','c')
         if not running: return
             
         time.sleep(0.5)
@@ -268,23 +270,21 @@ def final_action():
 
         pa.click(x=135, y=527, button='right', duration=0.3)
         time.sleep(0.5)
-        pa.click(x=209, y=808, duration=0.5)
+        bill.click_bill(bill_image) #pa.click(x=209, y=808, duration=0.5)
         if not running: return
         time.sleep(0.5)
         pa.press('enter')
         time.sleep(3)
 
-        perform_repetitive_action()
+        check_sit
+
         logging.info("6th bill.")
         time.sleep(3)
         pa.click(x=130, y=572, duration=0.5)
         time.sleep(0.2)
-        pa.click(button='right')
-        if not running: return
-
         original_content = pyperclip.paste()
 
-        pa.click(x=206, y=592, duration=0.2)
+        pa.hotkey('ctrl','c')
         if not running: return
             
         time.sleep(0.5)
@@ -294,24 +294,22 @@ def final_action():
 
         pa.click(x=130, y=572, button='right', duration=0.3)
         time.sleep(0.5)
-        pa.click(x=190, y=848, duration=0.5)
+        bill.click_bill(bill_image) #pa.click(x=190, y=848, duration=0.5)
         if not running: return
         time.sleep(0.5)
         pa.press('enter')
         time.sleep(3)
 
-        perform_repetitive_action()
+        check_sit()
 
         logging.info("7th bill.")
         time.sleep(2)
         pa.click(x=138, y=614, duration=0.5)
-        time.sleep(0.2)
-        pa.click(button='right')
         if not running: return
 
         original_content = pyperclip.paste()
 
-        pa.click(x=221, y=632, duration=0.2)
+        pa.hotkey('ctrl','c')
         if not running: return
             
         time.sleep(0.5)
@@ -321,24 +319,23 @@ def final_action():
 
         pa.click(x=138, y=614, button='right', duration=0.3)
         time.sleep(0.5)
-        pa.click(x=218, y=893, duration=0.5)
+        bill.click_bill(bill_image) #pa.click(x=218, y=893, duration=0.5)
         if not running: return
         time.sleep(0.5)
         pa.press('enter')
         time.sleep(3)
 
-        perform_repetitive_action()
+        check_sit()
 
         logging.info("8th bill.")
         time.sleep(2)
         pa.click(x=118, y=658, duration=0.5)
         time.sleep(0.2)
-        pa.click(button='right')
         if not running: return
 
         original_content = pyperclip.paste()
 
-        pa.click(x=207, y=687, duration=0.2)
+        pa.hotkey('ctrl','c')
         if not running: return
             
         time.sleep(0.5)
@@ -348,24 +345,23 @@ def final_action():
 
         pa.click(x=118, y=658, button='right', duration=0.3)
         time.sleep(0.5)
-        pa.click(x=195, y=947, duration=0.5)
+        bill.click_bill(bill_image) #pa.click(x=195, y=947, duration=0.5)
         if not running: return
         time.sleep(0.5)
         pa.press('enter')
         time.sleep(3)
 
-        perform_repetitive_action()
+        check_sit()
 
         logging.info("9th bill.")
         time.sleep(2)
         pa.click(x=132, y=709, duration=0.5)
         time.sleep(0.2)
-        pa.click(button='right')
         if not running: return
 
         original_content = pyperclip.paste()
 
-        pa.click(x=204, y=729, duration=0.2)
+        pa.hotkey('ctrl','c')
         if not running: return
             
         time.sleep(0.5)
@@ -375,13 +371,13 @@ def final_action():
 
         pa.click(x=132, y=709, button='right', duration=0.3)
         time.sleep(0.5)
-        pa.click(x=204, y=987, duration=0.5)
+        bill.click_bill() #pa.click(x=204, y=987, duration=0.5)
         if not running: return
         time.sleep(0.5)
         pa.press('enter')
         time.sleep(3)
 
-        perform_repetitive_action()
+        check_sit()
 
         logging.info("10th bill.")
         time.sleep(2)
@@ -392,7 +388,7 @@ def final_action():
 
         original_content = pyperclip.paste()
 
-        pa.click(x=211, y=424, duration=0.2)
+        pa.hotkey('ctrl','c')
         if not running: return
             
         time.sleep(0.5)
@@ -402,24 +398,23 @@ def final_action():
 
         pa.click(x=132, y=751, button='right', duration=0.3)
         time.sleep(0.5)
-        pa.click(x=212, y=686, duration=0.5)
+        bill.click_bill(bill_image) #pa.click(x=212, y=686, duration=0.5)
         if not running: return
         time.sleep(0.5)
         pa.press('enter')
         time.sleep(3)
 
-        perform_repetitive_action()
+        check_sit()
 
         logging.info("11th bill.")
         time.sleep(2)
         pa.click(x=119, y=797, duration=0.5)
         time.sleep(0.2)
-        pa.click(button='right')
         if not running: return
 
         original_content = pyperclip.paste()
 
-        pa.click(x=192, y=472, duration=0.2)
+        pa.hotkey('ctrl','c')
         if not running: return
             
         time.sleep(0.5)
@@ -429,24 +424,23 @@ def final_action():
 
         pa.click(x=119, y=797, button='right', duration=0.3)
         time.sleep(0.5)
-        pa.click(x=199, y=734, duration=0.5)
+        bill.click_bill(bill_image) #pa.click(x=199, y=734, duration=0.5)
         if not running: return
         time.sleep(0.5)
         pa.press('enter')
         time.sleep(3)
 
-        perform_repetitive_action()
+        check_sit()
 
         logging.info("12th bill.")
         time.sleep(2)
         pa.click(x=133, y=842, duration=0.5)
         time.sleep(0.2)
-        pa.click(button='right')
         if not running: return
 
         original_content = pyperclip.paste()
 
-        pa.click(x=210, y=515, duration=0.2)
+        pa.hotkey('ctrl','c')
         if not running: return
             
         time.sleep(0.5)
@@ -456,24 +450,23 @@ def final_action():
 
         pa.click(x=133, y=842, button='right', duration=0.3)
         time.sleep(0.5)
-        pa.click(x=209, y=779, duration=0.5)
+        bill.click_bill(bill_image) #pa.click(x=209, y=779, duration=0.5)
         if not running: return
         time.sleep(0.5)
         pa.press('enter')
         time.sleep(3)
 
-        perform_repetitive_action()
+        check_sit()
 
         logging.info("13th bill, final bill.")
         time.sleep(2)
         pa.click(x=117, y=888, duration=0.5)
         time.sleep(0.2)
-        pa.click(button='right')
         if not running: return
 
         original_content = pyperclip.paste()
 
-        pa.click(x=198, y=565, duration=0.2)
+        pa.hotkey('ctrl','c')
         if not running: return
             
         time.sleep(0.5)
@@ -483,13 +476,15 @@ def final_action():
 
         pa.click(x=117, y=888, button='right', duration=0.3)
         time.sleep(0.5)
-        pa.click(x=187, y=830, duration=0.5)
+        bill.click_bill(bill_image) #pa.click(x=187, y=830, duration=0.5)
         if not running: return
         time.sleep(0.5)
         pa.press('enter')
         time.sleep(3)
 
-        perform_repetitive_action()
+        check_sit()
+
+        running = False
 
 # every time.sleep() in perform_repetitive_action is tested until maximum affordable time, not recommended to reduce
 def perform_repetitive_action():
@@ -526,7 +521,6 @@ def perform_repetitive_action():
         time.sleep(1)
         locate_and_click_image()
         time.sleep(0.2)
-        pass
         """
         found_image2 = False
         for attempt in range(3):
@@ -562,9 +556,9 @@ def perform_repetitive_action():
         logging.error(f"Error during repetitive action: {e}")
 
 def check_sit():
-    found_image6= sit_detect(image6_path, threshold = 0.8, return_confidence=True)
+    found_image6, confidence3 = sit_detect(image6_path, threshold = 0.8, return_confidence=True)
     if found_image6:
-        logging.info(f"Sales Invoice Tab detected.")
+        logging.info(f"Sales Invoice Tab detected with confience {confidence3}.")
         time.sleep(2)
         perform_repetitive_action()
     else:
