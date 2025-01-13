@@ -23,14 +23,14 @@ running = False
 max_attempts = 10 # can reduce attempts to increase efficiency
 
 # if need to change from coordinates to picture locate, add image start from here and copy the format
-image_path = "C:\\Users\\sunwaypharmacyfinanc\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\Confirmation_2_Enter.png"
-image2_path = 'C:\\Users\\sunwaypharmacyfinanc\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\billed_success.png'
-image3_path = 'C:\\Users\\sunwaypharmacyfinanc\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\billed_fail.png'
-image4_path = 'C:\\Users\\sunwaypharmacyfinanc\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\menu.png'
-image5_path = 'C:\\Users\\sunwaypharmacyfinanc\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\final run.png'
-image6_path = 'C:\\Users\\sunwaypharmacyfinanc\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\sales_invoice_tab.png'
-image7_path = 'C:\\Users\\sunwaypharmacyfinanc\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\sales_confirmed.png'
-bill_image = 'C:\\Users\\sunwaypharmacyfinanc\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\bill_text.png'
+image_path = "C:\\Users\\yourusername\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\Confirmation_2_Enter.png"
+image2_path = 'C:\\Users\\yourusername\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\billed_success.png'
+image3_path = 'C:\\Users\\yourusername\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\billed_fail.png'
+image4_path = 'C:\\Users\\yourusername\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\menu.png'
+image5_path = 'C:\\Users\\yourusername\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\final run.png'
+image6_path = 'C:\\Users\\yourusername\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\sales_invoice_tab.png'
+image7_path = 'C:\\Users\\yourusername\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\sales_confirmed.png'
+bill_image = 'C:\\Users\\yourusername\\Downloads\\Xilnex_Auto_AR_Billing\\Pictures\\bill_text.png'
 
 
 template1 = cv2.imread(image_path, cv2.IMREAD_COLOR)
