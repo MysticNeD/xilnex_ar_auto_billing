@@ -3,7 +3,7 @@ import numpy as np
 import pyautogui as pa
 import time
 
-bill_image = 'C:\\Users\\sunwaypharmacyfinanc\\Downloads\\Xilnex_Auto_AR_Billing\\bill_text.png'
+bill_image = 'C:\\Users\\yourusername\\Downloads\\Xilnex_Auto_AR_Billing\\bill_text.png'
 
 def click_bill(template, threshold = 0.8):
     template = cv2.imread(template, 0)
