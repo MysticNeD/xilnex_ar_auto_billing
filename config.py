@@ -1,4 +1,4 @@
-COORDINAES = {
+COORDINATES = {
     'blank_click': (1201, 188),
     'sales_person': (748, 220),
     'po_number': (302, 495),
