@@ -12,6 +12,7 @@ from datetime import datetime
 from threading import Thread
 import ctypes
 import bill
+from config import COORDINATES
 
 # create autolog everytimme in Downloads\Xilnex_Auto_AR_Billing
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -127,7 +128,7 @@ def sc_check():
     if found_image7:
         logging.info(f"Sales Confirmed detected with confidence.")
         time.sleep(1)
-        pa.click(x=850, y=680, duration=0.3)
+        pa.click(x=COORDINATES['confirmation_click'][0], y=COORDINATES['confirmation_click'][1], duration=0.3)
         time.sleep(0.5) # can reduce
         pa.hotkey('ctrl', 'w')
         logging.info("ctrl+w hotkey done")
@@ -136,7 +137,7 @@ def sc_check():
     else:
         logging.warning("Cannot find Sales Confirmed.")
         time.sleep(5)
-        pa.click(x=850, y=680, duration=1)
+        pa.click(x=COORDINATES['confirmation_click'][0], y=COORDINATES['confirmation_click'][1], duration=1)
         time.sleep(5) # do not change
         pa.hotkey('ctrl', 'w')   
 
@@ -159,7 +160,7 @@ def locate_and_click_image():
             time.sleep(2) # can reduce
     if not found:
         logging.error("Confirmation template not found after maximum attempts. Clicking fallback position.")
-        pa.click(x=850, y=680, duration=1)
+        pa.click(x=COORDINATES['confirmation_click'][0], y=COORDINATES['confirmation_click'][1], duration=1)
         time.sleep(5) # do not change
         pa.hotkey('ctrl', 'w')
         found = True
@@ -219,6 +220,26 @@ final_action bug: sometimes the error shows “clickboard update failed" because
 for every time.sleep() except row 166 can be reduced if necessary
 (FYI: you dont need to reduce time.sleep() because final_action() will only start when it is on last scroll, it did not increase the efficiency very well)
 """
+
+def copy_and_bill(x, y):
+    pa.click(x=x,y=y, duration=1)
+    if not running: return
+    time.sleep(0.3)
+    if not running: return
+    original_content = pyperclip.paste()
+    time.sleep(0.1)
+    pa.hotkey('ctrl', 'c')
+    if not running: return
+    time.sleep(0.5)
+    new_content = pyperclip.paste()
+    check_clickboard_change(original_content, new_content)
+    pa.click(x=x, y=y, button='right', duration=0.3)
+    time.sleep(0.5)
+    bill.click_bill(bill_image)
+    if not running: return
+    time.sleep(0.5)
+    pa.press('enter')
+
 def final_action():
     if running:
         logging.info("Final run started.")
@@ -227,273 +248,65 @@ def final_action():
         pa.hotkey('ctrl','w')
         logging.info('4th bill')
         time.sleep(3)
-        pa.click(x=124, y=477, duration = 1)
-        time.sleep(0.3)
-        if not running: return
-
-        original_content = pyperclip.paste()
-
-        pa.hotkey('ctrl','c')
-        if not running: return
-
-        time.sleep(0.5)
-        new_content = pyperclip.paste()
-            
-        check_clickboard_change(original_content, new_content)
-
-        time.sleep(0.5)    
-        pa.click(x=125, y=477, button='right', duration=0.3)
-        if not running: return
-        time.sleep(0.5)
-        bill.click_bill(bill_image) #pa.click(x=205, y=760, duration=0.5)
-        if not running: return
-        time.sleep(0.5)
-        pa.press('enter')
-        time.sleep(0.5)
-
+        copy_and_bill(COORDINATES['position_4'][0], COORDINATES['position_4'][1])
+        time.sleep(2)
         check_sit()
-
         logging.info('5th bill')
         time.sleep(3)
-        pa.click(x=135, y=527, duration=0.5)
-        if not running: return
-
-        original_content = pyperclip.paste()
-
-        pa.hotkey('ctrl','c')
-        if not running: return
-            
-        time.sleep(0.5)
-        new_content = pyperclip.paste()
-
-        check_clickboard_change(original_content, new_content)
-
-        pa.click(x=135, y=527, button='right', duration=0.3)
-        time.sleep(0.5)
-        bill.click_bill(bill_image) #pa.click(x=209, y=808, duration=0.5)
-        if not running: return
-        time.sleep(0.5)
-        pa.press('enter')
-        time.sleep(3)
-
-        check_sit
-
+        copy_and_bill(COORDINATES['position_5'][0], COORDINATES['position_5'][1])
+        time.sleep(2)
+        check_sit()
         logging.info("6th bill.")
         time.sleep(3)
-        pa.click(x=130, y=572, duration=0.5)
-        time.sleep(0.2)
-        original_content = pyperclip.paste()
-
-        pa.hotkey('ctrl','c')
-        if not running: return
-            
-        time.sleep(0.5)
-        new_content = pyperclip.paste()
-
-        check_clickboard_change(original_content, new_content)
-
-        pa.click(x=130, y=572, button='right', duration=0.3)
-        time.sleep(0.5)
-        bill.click_bill(bill_image) #pa.click(x=190, y=848, duration=0.5)
-        if not running: return
-        time.sleep(0.5)
-        pa.press('enter')
-        time.sleep(3)
-
+        copy_and_bill(COORDINATES['position_6'][0], COORDINATES['position_6'][1])
+        time.sleep(2)
         check_sit()
-
         logging.info("7th bill.")
         time.sleep(2)
-        pa.click(x=138, y=614, duration=0.5)
-        if not running: return
-
-        original_content = pyperclip.paste()
-
-        pa.hotkey('ctrl','c')
-        if not running: return
-            
-        time.sleep(0.5)
-        new_content = pyperclip.paste()
-
-        check_clickboard_change(original_content, new_content)
-
-        pa.click(x=138, y=614, button='right', duration=0.3)
-        time.sleep(0.5)
-        bill.click_bill(bill_image) #pa.click(x=218, y=893, duration=0.5)
-        if not running: return
-        time.sleep(0.5)
-        pa.press('enter')
-        time.sleep(3)
-
+        copy_and_bill(COORDINATES['position_7'][0], COORDINATES['position_7'][1])
+        time.sleep(2)
         check_sit()
-
         logging.info("8th bill.")
         time.sleep(2)
-        pa.click(x=118, y=658, duration=0.5)
-        time.sleep(0.2)
-        if not running: return
-
-        original_content = pyperclip.paste()
-
-        pa.hotkey('ctrl','c')
-        if not running: return
-            
-        time.sleep(0.5)
-        new_content = pyperclip.paste()
-
-        check_clickboard_change(original_content, new_content)
-
-        pa.click(x=118, y=658, button='right', duration=0.3)
-        time.sleep(0.5)
-        bill.click_bill(bill_image) #pa.click(x=195, y=947, duration=0.5)
-        if not running: return
-        time.sleep(0.5)
-        pa.press('enter')
-        time.sleep(3)
-
+        copy_and_bill(COORDINATES['position_8'][0], COORDINATES['position_8'][1])
+        time.sleep(2)
         check_sit()
-
         logging.info("9th bill.")
         time.sleep(2)
-        pa.click(x=132, y=709, duration=0.5)
-        time.sleep(0.2)
-        if not running: return
-
-        original_content = pyperclip.paste()
-
-        pa.hotkey('ctrl','c')
-        if not running: return
-            
-        time.sleep(0.5)
-        new_content = pyperclip.paste()
-
-        check_clickboard_change(original_content, new_content)
-
-        pa.click(x=132, y=709, button='right', duration=0.3)
-        time.sleep(0.5)
-        bill.click_bill() #pa.click(x=204, y=987, duration=0.5)
-        if not running: return
-        time.sleep(0.5)
-        pa.press('enter')
-        time.sleep(3)
-
+        copy_and_bill(COORDINATES['position_9'][0], COORDINATES['position_9'][1])
+        time.sleep(2)
         check_sit()
-
         logging.info("10th bill.")
         time.sleep(2)
-        pa.click(x=132, y=751, duration=0.5)
-        time.sleep(0.2)
-        pa.click(button='right')
-        if not running: return
-
-        original_content = pyperclip.paste()
-
-        pa.hotkey('ctrl','c')
-        if not running: return
-            
-        time.sleep(0.5)
-        new_content = pyperclip.paste()
-
-        check_clickboard_change(original_content, new_content)
-
-        pa.click(x=132, y=751, button='right', duration=0.3)
-        time.sleep(0.5)
-        bill.click_bill(bill_image) #pa.click(x=212, y=686, duration=0.5)
-        if not running: return
-        time.sleep(0.5)
-        pa.press('enter')
-        time.sleep(3)
-
+        copy_and_bill(COORDINATES['position_10'][0], COORDINATES['position_10'][1])
+        time.sleep(2)
         check_sit()
-
         logging.info("11th bill.")
         time.sleep(2)
-        pa.click(x=119, y=797, duration=0.5)
-        time.sleep(0.2)
-        if not running: return
-
-        original_content = pyperclip.paste()
-
-        pa.hotkey('ctrl','c')
-        if not running: return
-            
-        time.sleep(0.5)
-        new_content = pyperclip.paste()
-
-        check_clickboard_change(original_content, new_content)
-
-        pa.click(x=119, y=797, button='right', duration=0.3)
-        time.sleep(0.5)
-        bill.click_bill(bill_image) #pa.click(x=199, y=734, duration=0.5)
-        if not running: return
-        time.sleep(0.5)
-        pa.press('enter')
-        time.sleep(3)
-
+        copy_and_bill(COORDINATES['position_11'][0], COORDINATES['position_11'][1])
+        time.sleep(2)
         check_sit()
-
         logging.info("12th bill.")
         time.sleep(2)
-        pa.click(x=133, y=842, duration=0.5)
-        time.sleep(0.2)
-        if not running: return
-
-        original_content = pyperclip.paste()
-
-        pa.hotkey('ctrl','c')
-        if not running: return
-            
-        time.sleep(0.5)
-        new_content = pyperclip.paste()
-
-        check_clickboard_change(original_content, new_content)
-
-        pa.click(x=133, y=842, button='right', duration=0.3)
-        time.sleep(0.5)
-        bill.click_bill(bill_image) #pa.click(x=209, y=779, duration=0.5)
-        if not running: return
-        time.sleep(0.5)
-        pa.press('enter')
-        time.sleep(3)
-
+        copy_and_bill(COORDINATES['position_12'][0], COORDINATES['position_12'][1])
+        time.sleep(2)
         check_sit()
-
         logging.info("13th bill, final bill.")
         time.sleep(2)
-        pa.click(x=117, y=888, duration=0.5)
-        time.sleep(0.2)
-        if not running: return
-
-        original_content = pyperclip.paste()
-
-        pa.hotkey('ctrl','c')
-        if not running: return
-            
-        time.sleep(0.5)
-        new_content = pyperclip.paste()
-
-        check_clickboard_change(original_content, new_content)
-
-        pa.click(x=117, y=888, button='right', duration=0.3)
-        time.sleep(0.5)
-        bill.click_bill(bill_image) #pa.click(x=187, y=830, duration=0.5)
-        if not running: return
-        time.sleep(0.5)
-        pa.press('enter')
-        time.sleep(3)
-
+        copy_and_bill(COORDINATES['position_13'][0], COORDINATES['position_13'][1])
+        time.sleep(2)
         check_sit()
-
-        running = False
+        logging.info("Final run done.")
+        stop_program()
 
 # every time.sleep() in perform_repetitive_action is tested until maximum affordable time, not recommended to reduce
 def perform_repetitive_action():
     try:
         logging.info("Performing billing action.")
-        pa.click(x=1201, y=188, duration=0.5)
+        pa.click(x=COORDINATES['blank_click'][0], y=COORDINATES['blank_click'][1], duration=0.5) # click blank
         if not running: return
         time.sleep(0.5)
-        pa.click(x=748, y=220, duration=0.5)
+        pa.click(x=COORDINATES['sales_person'][0], y=COORDINATES['sales_person'][1], duration=0.5) # sales person
         if not running: return
         time.sleep(0.5)
         pa.write('ko', interval= 0.2)
@@ -502,7 +315,7 @@ def perform_repetitive_action():
         pa.press('enter')
         if not running: return
         time.sleep(0.5)
-        pa.click(x=302, y=495, duration=0.7)
+        pa.click(x=COORDINATES['po_number'][0], y=COORDINATES['po_number'][1], duration=0.7) # P.O number (S.T XXXXXXX)
         if not running: return
         time.sleep(0.5)
         pa.write('S.T ', interval=0.2)
@@ -511,16 +324,15 @@ def perform_repetitive_action():
         pa.hotkey('ctrl', 'v')
         if not running: return
         time.sleep(0.5)
-        pa.click(x=949, y=990, duration=1)
+        pa.click(x=COORDINATES['arrow'][0], y=COORDINATES['arrow'][1], duration=1) # arrow
         if not running: return
         time.sleep(0.5)
-        pa.click(x=156, y=940, duration=0.6)
+        pa.click(x=COORDINATES['confirm'][0], y=COORDINATES['confirm'][1], duration=0.6) # confirm
         if not running: return
         time.sleep(0.5)
         pa.press('enter')
         time.sleep(1)
         locate_and_click_image()
-        time.sleep(0.2)
         """
         found_image2 = False
         for attempt in range(3):
@@ -570,84 +382,29 @@ def perform_action():
     while True:
         if running:
             logging.info("Main automation action started.")
-            pa.click(x=156, y=346, duration=1)
-            time.sleep(0.3)
-            if not running: return
-            original_content = pyperclip.paste()
-            pa.hotkey('ctrl','c')
-            if not running: return
-            time.sleep(0.5)
-            new_content = pyperclip.paste()
-            check_clickboard_change(original_content, new_content)  
-            pa.click(x=156, y=346, button='right', duration=0.3)
-            if not running: return
-            time.sleep(0.5)
-            bill.click_bill(bill_image) #pa.click(x=290, y=628, duration=0.5)
-            if not running: return
-            time.sleep(0.5)
-            pa.press('enter')
-            time.sleep(5)
-
+            copy_and_bill(COORDINATES['position_1'][0], COORDINATES['position_1'][1])
+            time.sleep(3)
             detected = match_template_on_screen(template5, threshold=0.8)
             if detected:
                 print("Detected Final Loop.")
                 final_action()
                 logging.info('All Billed. Stop Program')
                 stop_program()
-
             check_sit()
-
+            time.sleep(0.5)
             logging.info("Resetting to second position.")
             time.sleep(2)
-            pa.click(x=138, y=396, duration=0.5)
-            time.sleep(0.2)
-            if not running: return
-            original_content = pyperclip.paste()
-            pa.hotkey('ctrl','c')
-            if not running: return
-            time.sleep(0.5)
-            new_content = pyperclip.paste()
-
-            check_clickboard_change(original_content, new_content)
-
-            pa.click(x=138, y=396, button='right', duration=0.3)
-            time.sleep(0.5)
-            bill.click_bill(bill_image) #pa.click(x=280, y=675, duration=0.5)
-            if not running: return
-            time.sleep(0.5)
-            pa.press('enter')
-            time.sleep(0.5)
-
+            copy_and_bill(COORDINATES['position_2'][0], COORDINATES['position_2'][1])
+            time.sleep(2)
             check_sit()
-
             logging.info("Resetting to third position.")
-            time.sleep(5) # can reduce
-            pa.click(x=139, y=436, duration=0.5)
-            time.sleep(0.2)
-            if not running: return
-            original_content = pyperclip.paste()
-            pa.hotkey('ctrl','c')
-            if not running: return
-            
-            time.sleep(0.5)
-            new_content = pyperclip.paste()
-
-            check_clickboard_change(original_content, new_content)
-
-            time.sleep(0.5)
-            pa.click(x=139, y=436, button='right', duration=0.3)
-            time.sleep(0.5)
-            bill.click_bill(bill_image) #pa.click(x=348, y=729, duration=0.5)
-            if not running: return
-            time.sleep(0.5)
-            pa.press('enter')
-            time.sleep(0.5)
-
+            time.sleep(5)
+            copy_and_bill(COORDINATES['position_3'][0], COORDINATES['position_3'][1])
+            time.sleep(2)
             check_sit()
-
             logging.info("Loop done. Preparing to scroll for new loop.")
-            time.sleep(5) # can reduce
-            pa.moveTo(x=156, y=346, duration=0.2)
+            time.sleep(5)
+            pa.moveTo(x=COORDINATES['position_1'][0], y=COORDINATES['position_1'][1], duration=0.2)
             time.sleep(0.5)
             pa.scroll(-200)
             time.sleep(0.5)
