@@ -7,7 +7,6 @@ position_1 to position_13 are the 13 transfer notes in a page (if it is not 13, 
 
 to add coordinaates, make sure you only add in config and insert into final_version.py with example below:
 '
-'
 v
 pa.click(x=COORDINATES['confirm'][0], y=COORDINATES['confirm'][1])
 
